@@ -2,19 +2,19 @@ package travelagency.service;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 public class Travel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String destination;
     private BigDecimal price;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private Timestamp startDate;
+    private Timestamp endDate;
     private int numberOfPeople;
 
 
-    public Travel(String destination, LocalDate startDate, LocalDate endDate, int numberOfPeople) {
+    public Travel(String destination, Timestamp startDate, Timestamp endDate, int numberOfPeople) {
         this.destination = destination;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -30,11 +30,11 @@ public class Travel implements Serializable {
         return price;
     }
 
-    public LocalDate getStartDate() {
+    public Timestamp getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Timestamp getEndDate() {
         return endDate;
     }
 
@@ -50,11 +50,11 @@ public class Travel implements Serializable {
         this.price = price;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Timestamp startDate) {
         this.startDate = startDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Timestamp endDate) {
         this.endDate = endDate;
     }
 
