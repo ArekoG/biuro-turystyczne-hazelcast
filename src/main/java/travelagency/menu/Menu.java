@@ -1,10 +1,8 @@
 package travelagency.menu;
 
-import com.aerospike.client.AerospikeClient;
-import com.aerospike.client.query.IndexType;
-import com.aerospike.client.task.IndexTask;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import travelagency.common.Constants;
 import travelagency.service.IQuery;
 import travelagency.service.ITravelAgency;
 import travelagency.service.InputService;
@@ -31,12 +29,6 @@ public class Menu {
         if (databaseChoice == 1) {
             setUpHazelcast();
         } else if (databaseChoice == 2) {
-           AerospikeClient client = new AerospikeClient("172.28.128.4", 3000);
-          //   IndexTask indexTask = client.createIndex(null, "test", "travel", "idx_query", "travelobject", IndexType.GEO2DSPHERE);
-         //  indexTask.waitTillComplete();
-           // client.dropIndex(null,"test","travel","idx_query");
-
-            client.close();
             setUpAerospike();
         }
 
@@ -99,7 +91,7 @@ public class Menu {
     }
 
     private void setUpAerospike() {
-        squadName = "Aerospike";
+        squadName = Constants.AEROSPIKE;
         iQuery = new AerospikeQuery();
         travelAgency = new AerospikeTravelAgencyImpl();
     }
@@ -109,12 +101,12 @@ public class Menu {
         iQuery = new HazelcastQuery();
         HazelcastInstance hazelcastInstance = Hazelcast.newHazelcastInstance();
         setListener(hazelcastInstance);
-        squadName = "Hazelcast";
+        squadName = Constants.HAZELCAST;
     }
 
 
     private void setListener(HazelcastInstance hazelcastInstance) {
-        hazelcastInstance.getMap("travel").addEntryListener(new HazelcastListener(hazelcastInstance), true);
+        hazelcastInstance.getMap(Constants.TRAVEL).addEntryListener(new HazelcastListener(hazelcastInstance), true);
     }
 
 }

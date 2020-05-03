@@ -3,15 +3,15 @@ package travelagency.service.hazelcast;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
-import com.hazelcast.query.Predicate;
 import com.hazelcast.query.Predicates;
+import org.codehaus.plexus.util.StringUtils;
+import travelagency.common.Constants;
 import travelagency.service.ITravelAgency;
 import travelagency.service.Travel;
 import travelagency.service.dto.TravelDTO;
 
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -22,8 +22,7 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
     @Override
     public Long add(Travel travel) {
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
-        IMap<Long, Travel> travelMap = client.getMap("travel");
-
+        IMap<Long, Travel> travelMap = client.getMap(Constants.TRAVEL);
         Long id = ThreadLocalRandom.current().nextLong(1, 100000000);
         travelMap.put(id, travel);
         return id;
@@ -33,7 +32,7 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
     @Override
     public void update(Long id, Timestamp newStartDate, Timestamp newEndDate) {
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
-        IMap<Long, Travel> travelMap = client.getMap("travel");
+        IMap<Long, Travel> travelMap = client.getMap(Constants.TRAVEL);
         if (isValidate(travelMap, id)) {
             Travel updatedTravel = travelMap.get(id);
             updatedTravel.setStartDate(newStartDate);
@@ -46,7 +45,7 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
     @Override
     public void remove(Long id) {
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
-        IMap<Long, Travel> travel = client.getMap("travel");
+        IMap<Long, Travel> travel = client.getMap(Constants.TRAVEL);
         if (isValidate(travel, id)) {
             travel.remove(id);
         }
@@ -54,22 +53,18 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
 
     @Override
     public Optional<Collection<TravelDTO>> findByQuery(StringBuilder query) {
+        if (StringUtils.isBlank(query.toString())) {
+            return Optional.empty();
+        }
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
-        IMap<Long, Travel> travel = client.getMap("travel");
-        return Optional.of(travel.values(Predicates.sql(query.toString().substring(0, query.length()-4)))
+        IMap<Long, Travel> travel = client.getMap(Constants.TRAVEL);
+        return Optional.of(travel.values(Predicates.sql(query.toString().substring(0, query.length() - 4)))
                 .stream()
                 .map(TravelDTO::map)
                 .collect(Collectors.toList()));
 
     }
 
-    private Predicate[] getPredicatesArray(List<Predicate<?, ?>> predicates) {
-        final Predicate[] predicatesArray = new Predicate[predicates.size()];
-        for (int i = 0; i < predicates.size(); i++) {
-            predicatesArray[i] = predicates.get(i);
-        }
-        return predicatesArray;
-    }
 
     @Override
     public void perform() {
@@ -79,7 +74,7 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
     @Override
     public Optional<TravelDTO> getById(Long id) {
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
-        IMap<Long, Travel> travel = client.getMap("travel");
+        IMap<Long, Travel> travel = client.getMap(Constants.TRAVEL);
         if (!isValidate(travel, id)) {
             return Optional.empty();
         }
@@ -102,7 +97,7 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
     @Override
     public Collection<TravelDTO> getAll() {
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
-        return client.getMap("travel").entrySet().stream()
+        return client.getMap(Constants.TRAVEL).entrySet().stream()
                 .map(trav -> TravelDTO.map((Long) trav.getKey(), (Travel) trav.getValue()))
                 .collect(Collectors.toList());
 
@@ -111,6 +106,6 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
     @Override
     public boolean isTravelExists(Long id) {
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
-        return Objects.nonNull(client.getMap("travel")) && Objects.nonNull(client.getMap("travel").get(id));
+        return Objects.nonNull(client.getMap("travel")) && Objects.nonNull(client.getMap(Constants.TRAVEL).get(id));
     }
 }
