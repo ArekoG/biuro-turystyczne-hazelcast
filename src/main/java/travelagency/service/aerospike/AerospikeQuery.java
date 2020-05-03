@@ -1,21 +1,24 @@
 package travelagency.service.aerospike;
 
-import com.aerospike.client.AerospikeClient;
-import com.aerospike.client.query.Statement;
 import travelagency.service.IQuery;
 
+import java.util.Scanner;
+
 public class AerospikeQuery implements IQuery {
+
+    private final Scanner scanner = new Scanner(System.in);
+
     @Override
     public StringBuilder getQuery() {
-        AerospikeClient client = new AerospikeClient("172.28.128.4", 3000);
-        Statement statement = new Statement();
-        statement.setNamespace("test");
-        statement.setSetName("travel");
-        statement.setIndexName("idx_query");
+        return new StringBuilder(getDestination());
+    }
 
-        //    statement.setBinNames("travelobject");
-        //  statement.setFilter(Filter.equal("desination", "Barcelona"));
-        client.query(null, statement);
-        return null;
+    private String getDestination() {
+        String destination;
+        do {
+            System.out.println("Podaj miasto po którym chcesz szukać");
+            destination = scanner.nextLine();
+        } while (destination.isEmpty());
+        return destination;
     }
 }
