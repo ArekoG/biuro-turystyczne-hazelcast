@@ -21,16 +21,14 @@ służącego do wyszukiwania obiektu(indeksy można zakładać jedynie na pola t
 
 Dzięki czemu mogę zakładać indexy na pola i dzięki temu wyszukiwać interesujace mnie obiekty. Przyklad stworzenia
 indexu:
-- IndexTask indexTask = client.createIndex(null, "test", "travel", "idx_dest", "destination", IndexType.STRING);
+- IndexTask indexTask = client.createIndex(null, "test", "trav", "idx_destination", "destination", IndexType.STRING);
 indexTask.waitTillComplete(150);
 
 Timestamp użyty ponieważ hazelcast ma problemy z wyszukiwaniem po LocalDate.
 
 
 Operacje przetwarzania danych:
-1. Wyliczanie ceny podróży:
-- w hazelcascie odbywa się to asynchronicznie
-- w aerospike synchronicznie
+1. Wyliczanie ceny podróży
 
 2 .Pobieranie najnowszych statystyk dotyczących podróży czyli np najchętniej odwiedzane miasto, średnia ilość wydawanych pieniedzy
 oraz średnia ilość spędzanych dni na podróży biorać pod uwagę najnowsze możliwe dane(nawa mapa/set `statistic`). 

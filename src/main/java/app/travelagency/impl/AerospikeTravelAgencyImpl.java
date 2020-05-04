@@ -3,7 +3,7 @@ package app.travelagency.impl;
 
 import app.common.Constants;
 import app.common.TravelDTO;
-import app.listener.AerostrikeWriteListener;
+import app.listener.AerospikeWriteListener;
 import app.statistic.Statistic;
 import app.statistic.StatisticService;
 import app.travelagency.ITravelAgency;
@@ -48,7 +48,7 @@ public class AerospikeTravelAgencyImpl implements ITravelAgency, ScanCallback {
 
         WritePolicy writePolicy = getWritePolicy();
         EventLoop next = eventLoops.next();
-        client.put(next, new AerostrikeWriteListener(client), writePolicy, key, bins);
+        client.put(next, new AerospikeWriteListener(client), writePolicy, key, bins);
         client.close();
         return id;
     }
@@ -105,7 +105,7 @@ public class AerospikeTravelAgencyImpl implements ITravelAgency, ScanCallback {
         Statement stmt = new Statement();
         stmt.setNamespace(Constants.NAMESPACE);
         stmt.setSetName(Constants.TRAVEL);
-        stmt.setIndexName("idx_dest");
+        stmt.setIndexName("idx_destination");
         stmt.setBinNames(Constants.TRAVEL_OBJECT);
         stmt.setFilter(Filter.equal("destination", query.toString()));
         RecordSet records = client.query(null, stmt);

@@ -1,5 +1,6 @@
 package app.listener;
 
+import app.common.Constants;
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.listener.EntryAddedListener;
@@ -24,7 +25,7 @@ public class HazelcastListener implements EntryAddedListener<Long, Travel>, Entr
     public void entryAdded(EntryEvent<Long, Travel> travel) {
         if (Objects.isNull(travel.getValue().getPrice())) {
             travel.getValue().setPrice(priceCalculatorService.calculatePrice(travel.getValue()));
-            instance.getMap("travel").put(travel.getKey(), travel.getValue());
+            instance.getMap(Constants.TRAVEL).put(travel.getKey(), travel.getValue());
         }
     }
 
