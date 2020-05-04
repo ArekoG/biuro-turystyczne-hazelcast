@@ -1,16 +1,16 @@
-package travelagency.service.hazelcast;
+package app.travelagency.impl;
 
+import app.common.Constants;
+import app.common.TravelDTO;
+import app.statistic.Statistic;
+import app.statistic.StatisticService;
+import app.travelagency.ITravelAgency;
+import app.travelagency.Travel;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
 import com.hazelcast.query.Predicates;
 import org.codehaus.plexus.util.StringUtils;
-import travelagency.common.Constants;
-import travelagency.service.ITravelAgency;
-import travelagency.service.Statistic;
-import travelagency.service.StatisticService;
-import travelagency.service.Travel;
-import travelagency.service.dto.TravelDTO;
 
 import java.sql.Timestamp;
 import java.util.Collection;
@@ -46,6 +46,7 @@ public class HazelcastTravelAgencyImpl implements ITravelAgency {
     @Override
     public void update(Long id, Timestamp newStartDate, Timestamp newEndDate) {
         HazelcastInstance client = HazelcastClient.newHazelcastClient();
+        setNewestDataToFalseIfExists(client);
         IMap<Long, Travel> travelMap = client.getMap(Constants.TRAVEL);
         if (isValidate(travelMap, id)) {
             Travel updatedTravel = travelMap.get(id);

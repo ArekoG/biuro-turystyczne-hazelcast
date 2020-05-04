@@ -1,6 +1,13 @@
-package travelagency.service.aerospike;
+package app.travelagency.impl;
 
 
+import app.common.Constants;
+import app.common.TravelDTO;
+import app.listener.AerostrikeWriteListener;
+import app.statistic.Statistic;
+import app.statistic.StatisticService;
+import app.travelagency.ITravelAgency;
+import app.travelagency.Travel;
 import com.aerospike.client.*;
 import com.aerospike.client.async.EventLoop;
 import com.aerospike.client.async.EventLoops;
@@ -14,12 +21,6 @@ import com.aerospike.client.query.RecordSet;
 import com.aerospike.client.query.Statement;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import travelagency.common.Constants;
-import travelagency.service.ITravelAgency;
-import travelagency.service.Statistic;
-import travelagency.service.StatisticService;
-import travelagency.service.Travel;
-import travelagency.service.dto.TravelDTO;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class AerospikeTravelAgencyImpl implements ITravelAgency, ScanCallback {
     @Override
     public void update(Long id, Timestamp newStartDate, Timestamp newEndDate) {
         AerospikeClient client = new AerospikeClient(Constants.IP_ADDRESS, Constants.PORT);
+        setNewestDataToFalseIfExists(client);
         WritePolicy writePolicy = getWritePolicy();
         Key key = new Key(Constants.NAMESPACE, Constants.TRAVEL, id);
         Record record = client.get(null, key);

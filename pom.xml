@@ -20,7 +20,6 @@
             <artifactId>hazelcast-all</artifactId>
             <version>4.0.1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.codehaus.mojo/exec-maven-plugin -->
         <dependency>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
@@ -39,11 +38,6 @@
             <version>4.0.1</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-all</artifactId>
-            <version>4.1.14.Final</version>
-        </dependency>
     </dependencies>
 <!--    <build>
         <plugins>
@@ -62,7 +56,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>travelagency.Application</mainClass>
+                    <mainClass>app.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>

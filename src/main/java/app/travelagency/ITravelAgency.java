@@ -1,7 +1,8 @@
-package travelagency.service;
+package app.travelagency;
 
 
-import travelagency.service.dto.TravelDTO;
+import app.statistic.Statistic;
+import app.common.TravelDTO;
 
 import java.sql.Timestamp;
 import java.util.Collection;

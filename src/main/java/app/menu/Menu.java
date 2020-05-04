@@ -1,17 +1,17 @@
-package travelagency.menu;
+package app.menu;
 
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import travelagency.common.Constants;
-import travelagency.service.IQuery;
-import travelagency.service.ITravelAgency;
-import travelagency.service.InputService;
-import travelagency.service.Travel;
-import travelagency.service.aerospike.AerospikeQuery;
-import travelagency.service.aerospike.AerospikeTravelAgencyImpl;
-import travelagency.service.hazelcast.HazelcastListener;
-import travelagency.service.hazelcast.HazelcastQuery;
-import travelagency.service.hazelcast.HazelcastTravelAgencyImpl;
+import app.common.Constants;
+import app.query.IQuery;
+import app.travelagency.ITravelAgency;
+import app.common.InputService;
+import app.travelagency.Travel;
+import app.query.impl.AerospikeQuery;
+import app.travelagency.impl.AerospikeTravelAgencyImpl;
+import app.listener.HazelcastListener;
+import app.query.impl.HazelcastQuery;
+import app.travelagency.impl.HazelcastTravelAgencyImpl;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

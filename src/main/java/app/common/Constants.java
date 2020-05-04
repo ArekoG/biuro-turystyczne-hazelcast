@@ -1,4 +1,4 @@
-package travelagency.common;
+package app.common;
 
 public class Constants {
     public static final String IP_ADDRESS = "172.28.128.4";

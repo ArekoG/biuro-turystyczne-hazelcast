@@ -1,6 +1,6 @@
-package travelagency.service.dto;
+package app.common;
 
-import travelagency.service.Travel;
+import app.travelagency.Travel;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

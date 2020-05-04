@@ -1,6 +1,6 @@
-package travelagency.service;
+package app.statistic;
 
-import travelagency.service.dto.TravelDTO;
+import app.common.TravelDTO;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -45,6 +45,8 @@ public class StatisticService {
         Collection<BigDecimal> priceList = getPriceList(allTravel);
         BigDecimal sum = sum(priceList);
         MathContext mc = new MathContext(10, RoundingMode.HALF_UP);
+        if (sum.equals(BigDecimal.ZERO))
+            return BigDecimal.valueOf(0);
         return sum.divide(new BigDecimal(priceList.size()), mc);
 
     }

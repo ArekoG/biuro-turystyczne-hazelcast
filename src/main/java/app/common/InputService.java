@@ -1,4 +1,6 @@
-package travelagency.service;
+package app.common;
+
+import app.query.IQuery;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
