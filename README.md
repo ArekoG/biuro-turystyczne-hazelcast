@@ -35,5 +35,4 @@ oraz średnia ilość spędzanych dni na podróży biorać pod uwagę najnowsze 
 Jest zaimplementowany mechanizm, który sprawdza czy zostały dodane/zaktualizowane jakieś dane. Jeśli nie to zostają pobrane najświeższe statystyki,
 w przeciwnym wypadku następuje aktualizacja.
 
-Przykład wyszukiwania (hazelcast)
-![wyszukiwanie](https://imgur.com/a/BfglOA9)
+
