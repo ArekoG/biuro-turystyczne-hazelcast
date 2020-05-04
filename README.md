@@ -36,4 +36,4 @@ Jest zaimplementowany mechanizm, który sprawdza czy zostały dodane/zaktualizow
 w przeciwnym wypadku następuje aktualizacja.
 
 Przykład wyszukiwania (hazelcast)
-![wyszukiwanie](https://ibb.co/zSbxH5c)
+![wyszukiwanie](https://imgur.com/a/BfglOA9)
