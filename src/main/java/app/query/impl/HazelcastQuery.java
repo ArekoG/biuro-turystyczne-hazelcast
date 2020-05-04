@@ -1,6 +1,6 @@
-package travelagency.service.hazelcast;
+package app.query.impl;
 
-import travelagency.service.IQuery;
+import app.query.IQuery;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

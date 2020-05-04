@@ -1,19 +1,18 @@
-package travelagency.menu;
+package app.menu;
 
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import travelagency.common.Constants;
-import travelagency.service.IQuery;
-import travelagency.service.ITravelAgency;
-import travelagency.service.InputService;
-import travelagency.service.Travel;
-import travelagency.service.aerospike.AerospikeQuery;
-import travelagency.service.aerospike.AerospikeTravelAgencyImpl;
-import travelagency.service.hazelcast.HazelcastListener;
-import travelagency.service.hazelcast.HazelcastQuery;
-import travelagency.service.hazelcast.HazelcastTravelAgencyImpl;
+import app.common.Constants;
+import app.query.IQuery;
+import app.travelagency.ITravelAgency;
+import app.common.InputService;
+import app.travelagency.Travel;
+import app.query.impl.AerospikeQuery;
+import app.travelagency.impl.AerospikeTravelAgencyImpl;
+import app.listener.HazelcastListener;
+import app.query.impl.HazelcastQuery;
+import app.travelagency.impl.HazelcastTravelAgencyImpl;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 
@@ -24,7 +23,7 @@ public class Menu {
     private final InputService inputService = new InputService();
 
 
-    public int start() throws ParseException, IOException {
+    public int start() throws ParseException {
         int databaseChoice = inputService.getInt("Wybierz skład którego chcesz użyć:\n[1]Hazelcast\n[2]Areospike");
         if (databaseChoice == 1) {
             setUpHazelcast();
@@ -74,7 +73,7 @@ public class Menu {
                     travelAgency.findByQuery(inputService.getQueryField(iQuery)).ifPresent(System.out::println);
                     break;
                 case 7:
-
+                    System.out.println(travelAgency.perform().toString());
                     break;
                 case 8:
                     System.exit(200);

@@ -1,4 +1,4 @@
-package travelagency.service;
+package app.travelagency;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package travelagency.service;
+package app.query;
 
 public interface IQuery {
     StringBuilder getQuery();

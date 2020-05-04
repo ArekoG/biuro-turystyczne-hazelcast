@@ -1,12 +1,12 @@
-package travelagency.service.hazelcast;
+package app.listener;
 
 import com.hazelcast.core.EntryEvent;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.listener.EntryAddedListener;
 import com.hazelcast.map.listener.EntryRemovedListener;
 import com.hazelcast.map.listener.EntryUpdatedListener;
-import travelagency.service.PriceCalculator;
-import travelagency.service.Travel;
+import app.common.PriceCalculatorService;
+import app.travelagency.Travel;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -14,7 +14,7 @@ import java.util.Objects;
 public class HazelcastListener implements EntryAddedListener<Long, Travel>, EntryUpdatedListener<Long, Travel>, EntryRemovedListener<Long, Travel>, Serializable {
     private static final long serialVersionUID = 2L;
     private transient HazelcastInstance instance;
-    private final PriceCalculator priceCalculator = new PriceCalculator();
+    private final PriceCalculatorService priceCalculatorService = new PriceCalculatorService();
 
     public HazelcastListener(HazelcastInstance instance) {
         this.instance = instance;
@@ -23,7 +23,7 @@ public class HazelcastListener implements EntryAddedListener<Long, Travel>, Entr
     @Override
     public void entryAdded(EntryEvent<Long, Travel> travel) {
         if (Objects.isNull(travel.getValue().getPrice())) {
-            travel.getValue().setPrice(priceCalculator.calculatePrice(travel.getValue()));
+            travel.getValue().setPrice(priceCalculatorService.calculatePrice(travel.getValue()));
             instance.getMap("travel").put(travel.getKey(), travel.getValue());
         }
     }

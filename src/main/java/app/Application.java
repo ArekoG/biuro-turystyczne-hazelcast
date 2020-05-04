@@ -1,6 +1,6 @@
-package travelagency;
+package app;
 
-import travelagency.menu.Menu;
+import app.menu.Menu;
 
 import java.io.IOException;
 import java.text.ParseException;

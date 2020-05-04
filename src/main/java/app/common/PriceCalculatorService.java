@@ -1,11 +1,13 @@
-package travelagency.service;
+package app.common;
+
+import app.travelagency.Travel;
 
 import java.math.BigDecimal;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class PriceCalculator {
+public class PriceCalculatorService {
     public BigDecimal calculatePrice(Travel travel) {
         int durationOfTrip = getDurationOfTrip(travel);
         BigDecimal cityHotelPricePerNight = getCityHotelPrice(travel.getDestination());
@@ -19,6 +21,5 @@ public class PriceCalculator {
 
     private int getDurationOfTrip(Travel travel) {
         return (int) DAYS.between(travel.getStartDate().toInstant(), travel.getEndDate().toInstant());
-
     }
 }

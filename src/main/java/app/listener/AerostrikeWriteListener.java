@@ -1,14 +1,14 @@
-package travelagency.service.aerospike;
+package app.listener;
 
 import com.aerospike.client.*;
 import com.aerospike.client.listener.WriteListener;
 import com.aerospike.client.policy.WritePolicy;
-import travelagency.service.PriceCalculator;
-import travelagency.service.Travel;
+import app.common.PriceCalculatorService;
+import app.travelagency.Travel;
 
 public class AerostrikeWriteListener implements WriteListener {
     private final AerospikeClient client;
-    private final PriceCalculator priceCalculator = new PriceCalculator();
+    private final PriceCalculatorService priceCalculatorService = new PriceCalculatorService();
 
     public AerostrikeWriteListener(AerospikeClient client) {
         this.client = client;
@@ -17,7 +17,7 @@ public class AerostrikeWriteListener implements WriteListener {
     @Override
     public void onSuccess(Key key) {
         Travel travel = (Travel) client.get(null, key).bins.get("travelobject");
-        travel.setPrice(priceCalculator.calculatePrice(travel));
+        travel.setPrice(priceCalculatorService.calculatePrice(travel));
         Bin bin = new Bin("travelobject", Value.getAsBlob(travel));
         WritePolicy writePolicy = new WritePolicy();
         writePolicy.sendKey = true;

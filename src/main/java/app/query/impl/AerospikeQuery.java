@@ -1,6 +1,6 @@
-package travelagency.service.aerospike;
+package app.query.impl;
 
-import travelagency.service.IQuery;
+import app.query.IQuery;
 
 import java.util.Scanner;
 
