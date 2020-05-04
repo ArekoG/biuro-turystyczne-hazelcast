@@ -24,3 +24,9 @@ indexu:
 indexTask.waitTillComplete(150);
 
 Timestamp użyty ponieważ hazelcast ma problemy z wyszukiwaniem po LocalDate np
+
+
+Operacje przetwarzania danych:
+1. Wyliczanie ceny podróży
+2. Pobieranie najnowszych statystyk dotyczących podróży czyli np najchętniej odwiedzane miasto, średnia ilość wydawanych pieniedzy
+oraz średnia ilość spędzanych dni na podróży biorać pod uwagę najnowsze możliwe dane(nawa mapa/set `statistic`)

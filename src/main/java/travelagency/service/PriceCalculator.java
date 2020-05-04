@@ -19,6 +19,5 @@ public class PriceCalculator {
 
     private int getDurationOfTrip(Travel travel) {
         return (int) DAYS.between(travel.getStartDate().toInstant(), travel.getEndDate().toInstant());
-
     }
 }

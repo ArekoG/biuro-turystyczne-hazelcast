@@ -3,14 +3,13 @@ package travelagency.service;
 
 import travelagency.service.dto.TravelDTO;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Optional;
 
 
 public interface ITravelAgency {
-    Long add(Travel travel) throws IOException;
+    Long add(Travel travel);
 
     void update(Long id, Timestamp newStartDate, Timestamp newEndDate);
 
@@ -18,7 +17,7 @@ public interface ITravelAgency {
 
     Optional<Collection<TravelDTO>> findByQuery(StringBuilder query);
 
-    void perform();
+    Statistic perform();
 
     Optional<TravelDTO> getById(Long id);
 

@@ -13,7 +13,6 @@ import travelagency.service.hazelcast.HazelcastListener;
 import travelagency.service.hazelcast.HazelcastQuery;
 import travelagency.service.hazelcast.HazelcastTravelAgencyImpl;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 
@@ -24,7 +23,7 @@ public class Menu {
     private final InputService inputService = new InputService();
 
 
-    public int start() throws ParseException, IOException {
+    public int start() throws ParseException {
         int databaseChoice = inputService.getInt("Wybierz skład którego chcesz użyć:\n[1]Hazelcast\n[2]Areospike");
         if (databaseChoice == 1) {
             setUpHazelcast();
@@ -74,7 +73,7 @@ public class Menu {
                     travelAgency.findByQuery(inputService.getQueryField(iQuery)).ifPresent(System.out::println);
                     break;
                 case 7:
-
+                    System.out.println(travelAgency.perform().toString());
                     break;
                 case 8:
                     System.exit(200);

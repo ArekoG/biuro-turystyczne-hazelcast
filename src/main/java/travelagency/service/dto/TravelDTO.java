@@ -57,4 +57,8 @@ public class TravelDTO {
     public Timestamp getEndDate() {
         return endDate;
     }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
 }

@@ -22,7 +22,7 @@ public class InputService {
             System.out.println("[4]Pobierz podróż po id");
             System.out.println("[5]Pobierz liste wszystkich podróży");
             System.out.println("[6]Zaawansowane wyszukiwanie");
-            System.out.println("[7]Coś z przetwarzaniem tu bedzie(po stronie klienta)");
+            System.out.println("[7]Wygeneruj raport o podróżach");
             System.out.println("[8]Wyjdź");
             option = getInt(option);
         } while (option <= 0);
